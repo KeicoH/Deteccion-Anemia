@@ -1,0 +1,44 @@
+#librerias
+import os
+import cv2
+import scipy
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from PIL import Image, ImageFilter
+
+Ruta1_Nuevo = "DataTesis/Anemia/"
+Ruta2_Nuevo = "DataTesis/Sanos/"
+
+carpeta_anemia_Nuevo = os.listdir("DataTesis/Anemia")
+carpeta_sanos_Nuevo = os.listdir("DataTesis/Sanos")
+
+imagen = "IMG (144).jpg"
+hog = cv2.HOGDescriptor()
+image_gray = cv2.imread(imagen,cv2.IMREAD_GRAYSCALE)
+
+
+image_resize = cv2.resize(image_gray, (64,128))
+
+
+fv_hog = hog.compute(image_resize)
+
+%matplotlib inline
+import cv2
+from matplotlib import pyplot as plt
+import numpy as np
+
+hog = cv2.HOGDescriptor() 
+hog_sanos = []
+cont = 0
+for i in os.listdir("DataTesis/Sanos"):
+    image = cv2.imread("DataTesis/Sanos/" +i)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    img_resize = cv2.resize(gray, (64, 128))
+    hog = cv2.HOGDescriptor()
+    fv_hog = hog.compute(img_resize)
+    hog_sanos.append(fv_hog)
+    np.save('Hog_final/hog_sanos/'+i+'.npy',fv_hog)
+    feature_cols_hog_train = list(set(train_hog.columns.tolist()) - set(['TARGET']))
+X_train_hog = train_hog[feature_cols_hog_train]
+y_train_hog = train_hog.TARGET
