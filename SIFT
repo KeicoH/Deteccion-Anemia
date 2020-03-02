@@ -1,1 +1,29 @@
 
+import cv2
+import numpy as np
+import pandas as pd
+from skimage import io, color
+import matplotlib.pyplot as plt
+from sklearn import svm
+from sklearn import metrics
+from sklearn.metrics import*
+import seaborn as sns
+from sklearn.metrics import auc, roc_curve
+from sklearn.model_selection import train_test_split
+# Ver la version de opencv
+cv2.__version__
+
+# importamos el modulo pyplot, y lo llamamos plt
+import matplotlib.pyplot as plt
+#configuracion necesaria de pyplot para ver las imagenes en escala de grises
+plt.rcParams['image.cmap'] = 'gray'
+# comando de Jupyter para que las imagenes se muestren automaticamente 
+%matplotlib inline
+
+import glob
+import cv2 as cv
+path = glob.glob("C:\\Users\\Keico\Desktop\\TesisII-2020\\DataTesis\Sanos\\*.jpg")
+img_sanos = []
+for img in path:
+    n = cv.imread(img,cv2.IMREAD_GRAYSCALE)
+    img_sanos.append(n)
